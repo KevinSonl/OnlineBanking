@@ -1,10 +1,9 @@
 package com.kevinsonl.userfront.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.springframework.context.annotation.Primary;
-
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,128 +15,150 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kevinsonl.userfront.domain.security.Authority;
+import com.kevinsonl.userfront.domain.security.UserRole;
+
+
 @Entity
-public class User {
+public class User implements UserDetails{
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "user_id", nullable = false, updatable = false) //add more constraint to one colume
+  @Column(name = "userId", nullable = false, updatable = false)
   private Long userId;
   private String username;
   private String password;
   private String firstName;
   private String lastName;
+
+  @Column(name = "email", nullable = false, unique = true)
   private String email;
   private String phone;
 
-  private boolean enable=true;
+  // current user is enabled by admin
+  private boolean enabled= true;
 
   @OneToOne
   private PrimaryAccount primaryAccount;
 
   @OneToOne
-  private SavingAccount savingAccount;
+  private SavingsAccount savingsAccount;
 
+  //json ignore need when two way reference is happens
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
   private List<Appointment> appointmentList;
 
+  //oneToMany has to mapped by current user
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Recipient> recipientList;
 
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JsonIgnore
+  private Set<UserRole> userRoles = new HashSet<>();
+
+  public Set<UserRole> getUserRoles() {
+    return userRoles;
+  }
+
+  public void setUserRoles(Set<UserRole> userRoles) {
+    this.userRoles = userRoles;
+  }
+
   public Long getUserId() {
     return userId;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public String getPhone() {
-    return phone;
-  }
-
-  public boolean isEnable() {
-    return enable;
-  }
-
-  public PrimaryAccount getPrimaryAccount() {
-    return primaryAccount;
-  }
-
-  public SavingAccount getSavingAccount() {
-    return savingAccount;
-  }
-
-  public List<Appointment> getAppointmentList() {
-    return appointmentList;
-  }
-
-  public List<Recipient> getRecipientList() {
-    return recipientList;
   }
 
   public void setUserId(Long userId) {
     this.userId = userId;
   }
 
+  public String getUsername() {
+    return username;
+  }
+
   public void setUsername(String username) {
     this.username = username;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public String getFirstName() {
+    return firstName;
   }
 
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
+  public String getLastName() {
+    return lastName;
+  }
+
   public void setLastName(String lastName) {
     this.lastName = lastName;
+  }
+
+  public String getEmail() {
+    return email;
   }
 
   public void setEmail(String email) {
     this.email = email;
   }
 
+  public String getPhone() {
+    return phone;
+  }
+
   public void setPhone(String phone) {
     this.phone = phone;
   }
 
-  public void setEnable(boolean enable) {
-    this.enable = enable;
-  }
-
-  public void setPrimaryAccount(PrimaryAccount primaryAccount) {
-    this.primaryAccount = primaryAccount;
-  }
-
-  public void setSavingAccount(SavingAccount savingAccount) {
-    this.savingAccount = savingAccount;
+  public List<Appointment> getAppointmentList() {
+    return appointmentList;
   }
 
   public void setAppointmentList(List<Appointment> appointmentList) {
     this.appointmentList = appointmentList;
   }
 
+  public List<Recipient> getRecipientList() {
+    return recipientList;
+  }
+
   public void setRecipientList(List<Recipient> recipientList) {
     this.recipientList = recipientList;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public PrimaryAccount getPrimaryAccount() {
+    return primaryAccount;
+  }
+
+  public void setPrimaryAccount(PrimaryAccount primaryAccount) {
+    this.primaryAccount = primaryAccount;
+  }
+
+  public SavingsAccount getSavingsAccount() {
+    return savingsAccount;
+  }
+
+  public void setSavingsAccount(SavingsAccount savingsAccount) {
+    this.savingsAccount = savingsAccount;
+  }
+
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
   }
 
   @Override
@@ -150,11 +171,43 @@ public class User {
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
             ", phone='" + phone + '\'' +
-            ", enable=" + enable +
-            ", primaryAccount=" + primaryAccount +
-            ", savingAccount=" + savingAccount +
             ", appointmentList=" + appointmentList +
             ", recipientList=" + recipientList +
+            ", userRoles=" + userRoles +
             '}';
   }
+
+
+  // Spring Security UserDetails functions
+  // check spring security class, now copied from online
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    Set<GrantedAuthority> authorities = new HashSet<>();
+    userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+    return authorities;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    // TODO Auto-generated method stub
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    // TODO Auto-generated method stub
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    // TODO Auto-generated method stub
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return enabled;
+  }
+
 }

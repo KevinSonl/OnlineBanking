@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class SavingTransaction {
+public class SavingsTransaction {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
@@ -25,9 +25,9 @@ public class SavingTransaction {
 
   @ManyToOne
   @JoinColumn(name = "saving_account_id")
-  private SavingAccount savingAccount;
+  private SavingsAccount savingsAccount;
 
-  public SavingTransaction() { }
+  public SavingsTransaction() { }
 
   public Date getDate() {
     return date;
@@ -77,11 +77,11 @@ public class SavingTransaction {
     this.availableBalance = availableBalance;
   }
 
-  public SavingAccount getSavingAccount() {
-    return savingAccount;
+  public SavingsAccount getSavingsAccount() {
+    return savingsAccount;
   }
 
-  public void setSavingAccount(SavingAccount savingAccount) {
-    this.savingAccount = savingAccount;
+  public void setSavingsAccount(SavingsAccount savingsAccount) {
+    this.savingsAccount = savingsAccount;
   }
 }

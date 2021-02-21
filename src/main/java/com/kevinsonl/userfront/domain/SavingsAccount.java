@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class SavingAccount {
+public class SavingsAccount {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
@@ -22,9 +22,9 @@ public class SavingAccount {
   private BigDecimal accountBalance;
 
   // list of transaction happens in primaryAccount
-  @OneToMany(mappedBy = "savingAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "savingsAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
-  private List<SavingTransaction> primaryTransactions;
+  private List<SavingsTransaction> primaryTransactions;
 
   public Long getId() {
     return id;
@@ -50,11 +50,11 @@ public class SavingAccount {
     this.accountBalance = accountBalance;
   }
 
-  public List<SavingTransaction> getPrimaryTransactions() {
+  public List<SavingsTransaction> getPrimaryTransactions() {
     return primaryTransactions;
   }
 
-  public void setPrimaryTransactions(List<SavingTransaction> primaryTransactions) {
+  public void setPrimaryTransactions(List<SavingsTransaction> primaryTransactions) {
     this.primaryTransactions = primaryTransactions;
   }
 }

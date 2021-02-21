@@ -1,6 +1,8 @@
 package com.kevinsonl.userfront.controller;
 
+import com.kevinsonl.userfront.dao.RoleDao;
 import com.kevinsonl.userfront.domain.User;
+import com.kevinsonl.userfront.domain.security.UserRole;
 import com.kevinsonl.userfront.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashSet;
+import java.util.Set;
+
 
 @Controller
 public class HomeController {
 
   @Autowired
   private UserService userService;
+
+  // very simple in roleDao so that we can use dao directly
+  @Autowired
+  private RoleDao roleDao;
 
   @RequestMapping("/index")
   public String home() {
@@ -69,7 +77,8 @@ public class HomeController {
 
     } else {
       // use service to save user into database
-      userService.save(user);
+      Set<UserRole> userRoles = new HashSet<>();
+      userService.createUser(user, userRoles);
       return "redirect:/index";
     }
 
