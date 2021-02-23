@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 public class Recipient {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private String id;
+  private Long id;
   private String name;
   private String email;
   private String phone;
@@ -25,11 +25,11 @@ public class Recipient {
   @JsonIgnore // two way reference
   private User user;
 
-  public String getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
