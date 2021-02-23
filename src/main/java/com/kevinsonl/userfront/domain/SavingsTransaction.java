@@ -33,6 +33,16 @@ public class SavingsTransaction {
     return date;
   }
 
+  public SavingsTransaction(Date date, String description, String type, String status, double amount, BigDecimal availableBalance, SavingsAccount savingsAccount) {
+    this.date = date;
+    this.description = description;
+    this.type = type;
+    this.status = status;
+    this.amount = amount;
+    this.availableBalance = availableBalance;
+    this.savingsAccount = savingsAccount;
+  }
+
   public void setDate(Date date) {
     this.date = date;
   }
