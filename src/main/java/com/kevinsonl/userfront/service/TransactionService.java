@@ -2,9 +2,11 @@ package com.kevinsonl.userfront.service;
 
 import com.kevinsonl.userfront.domain.PrimaryAccount;
 import com.kevinsonl.userfront.domain.PrimaryTransaction;
+import com.kevinsonl.userfront.domain.Recipient;
 import com.kevinsonl.userfront.domain.SavingsAccount;
 import com.kevinsonl.userfront.domain.SavingsTransaction;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface TransactionService {
@@ -22,4 +24,12 @@ public interface TransactionService {
   void saveSavingsWithdrawTransaction(SavingsTransaction savingsTransaction);
 
   void betweenAccountsTransfer(String transferFrom, String transferTo, String amount, PrimaryAccount primaryAccount, SavingsAccount savingsAccount);
+
+  List<Recipient> findRecipientList(Principal principal);
+
+  Recipient findRecipientByName(String recipientName);
+
+  Recipient saveRecipient(Recipient recipient);
+
+  void deleteRecipientByName(String recipientName);
 }
