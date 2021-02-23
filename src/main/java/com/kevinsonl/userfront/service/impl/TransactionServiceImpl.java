@@ -1,8 +1,12 @@
 package com.kevinsonl.userfront.service.impl;
 
+import com.kevinsonl.userfront.dao.PrimaryAccountDao;
 import com.kevinsonl.userfront.dao.PrimaryTransactionDao;
+import com.kevinsonl.userfront.dao.SavingsAccountDao;
 import com.kevinsonl.userfront.dao.SavingsTransactionDao;
+import com.kevinsonl.userfront.domain.PrimaryAccount;
 import com.kevinsonl.userfront.domain.PrimaryTransaction;
+import com.kevinsonl.userfront.domain.SavingsAccount;
 import com.kevinsonl.userfront.domain.SavingsTransaction;
 import com.kevinsonl.userfront.domain.User;
 import com.kevinsonl.userfront.service.TransactionService;
@@ -11,6 +15,8 @@ import com.kevinsonl.userfront.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,6 +30,13 @@ public class TransactionServiceImpl implements TransactionService {
 
   @Autowired
   private SavingsTransactionDao savingsTransactionDao;
+
+  @Autowired
+  private PrimaryAccountDao primaryAccountDao;
+
+  @Autowired
+  private SavingsAccountDao savingsAccountDao;
+
 
 
   @Override
@@ -60,5 +73,36 @@ public class TransactionServiceImpl implements TransactionService {
   @Override
   public void saveSavingsWithdrawTransaction(SavingsTransaction savingsTransaction) {
     savingsTransactionDao.save(savingsTransaction);
+  }
+
+  @Override
+  public void betweenAccountsTransfer(String transferFrom, String transferTo, String amount, PrimaryAccount primaryAccount, SavingsAccount savingsAccount) {
+    if (transferFrom.equalsIgnoreCase("Primary") && transferTo.equalsIgnoreCase("Savings")) {
+      primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().subtract(new BigDecimal(amount)));
+      savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().add(new BigDecimal(amount)));
+      primaryAccountDao.save(primaryAccount);
+      savingsAccountDao.save(savingsAccount);
+
+      Date date = new Date();
+
+      PrimaryTransaction primaryTransaction = new PrimaryTransaction(date, "Between account transfer from "+transferFrom+" to "+transferTo, "Account", "Finished", Double.parseDouble(amount), primaryAccount.getAccountBalance(), primaryAccount);
+      primaryTransactionDao.save(primaryTransaction);
+    } else if (transferFrom.equalsIgnoreCase("Savings") && transferTo.equalsIgnoreCase("Primary")) {
+      primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().add(new BigDecimal(amount)));
+      savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));
+      primaryAccountDao.save(primaryAccount);
+      savingsAccountDao.save(savingsAccount);
+
+      Date date = new Date();
+
+      SavingsTransaction savingsTransaction = new SavingsTransaction(date, "Between account transfer from "+transferFrom+" to "+transferTo, "Transfer", "Finished", Double.parseDouble(amount), savingsAccount.getAccountBalance(), savingsAccount);
+      savingsTransactionDao.save(savingsTransaction);
+    } else {
+      try {
+        throw new Exception("Invalid Transfer");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
   }
 }
