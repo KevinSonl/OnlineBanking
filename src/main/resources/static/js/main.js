@@ -21,6 +21,7 @@
         })
     };
 
+    /*if transfer from been selected, the transfer To will be selected automate*/
     $.transferDisplay = function () {
         $("#transferFrom").change(function() {
             if ($("#transferFrom").val() == 'Primary') {
