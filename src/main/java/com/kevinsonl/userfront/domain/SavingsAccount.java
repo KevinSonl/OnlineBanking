@@ -24,7 +24,7 @@ public class SavingsAccount {
   // list of transaction happens in primaryAccount
   @OneToMany(mappedBy = "savingsAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
-  private List<SavingsTransaction> primaryTransactions;
+  private List<SavingsTransaction> savingsTransactions;
 
   public Long getId() {
     return id;
@@ -50,11 +50,11 @@ public class SavingsAccount {
     this.accountBalance = accountBalance;
   }
 
-  public List<SavingsTransaction> getPrimaryTransactions() {
-    return primaryTransactions;
+  public List<SavingsTransaction> getSavingsTransactions() {
+    return savingsTransactions;
   }
 
-  public void setPrimaryTransactions(List<SavingsTransaction> primaryTransactions) {
-    this.primaryTransactions = primaryTransactions;
+  public void setSavingsTransactions(List<SavingsTransaction> savingsTransactions) {
+    this.savingsTransactions = savingsTransactions;
   }
 }

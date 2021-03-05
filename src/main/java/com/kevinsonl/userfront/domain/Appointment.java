@@ -5,71 +5,81 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Id;
 
 @Entity
 public class Appointment {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
-  private Date date;
-  private String location;
-  private String description;
-  // default false
-  private boolean confirmed;
 
-  //many appointment to one user, each Appointment table has one column refer to a user_id
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private Date date;
+    private String location;
+    private String description;
+    private boolean confirmed;
 
-  public Long getId() {
-    return id;
-  }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public Date getDate() {
-    return date;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public void setDate(Date date) {
-    this.date = date;
-  }
+    public Date getDate() {
+        return date;
+    }
 
-  public String getLocation() {
-    return location;
-  }
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-  public void setLocation(String location) {
-    this.location = location;
-  }
+    public String getLocation() {
+        return location;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public boolean isConfirmed() {
-    return confirmed;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public void setConfirmed(boolean confirmed) {
-    this.confirmed = confirmed;
-  }
+    public User getUser() {
+        return user;
+    }
 
-  public User getUser() {
-    return user;
-  }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-  public void setUser(User user) {
-    this.user = user;
-  }
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", date=" + date +
+                ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }

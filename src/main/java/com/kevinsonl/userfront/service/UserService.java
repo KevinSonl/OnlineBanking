@@ -3,6 +3,7 @@ package com.kevinsonl.userfront.service;
 import com.kevinsonl.userfront.domain.User;
 import com.kevinsonl.userfront.domain.security.UserRole;
 
+import java.util.List;
 import java.util.Set;
 
 public interface UserService {
@@ -20,7 +21,7 @@ public interface UserService {
 
   User createUser(User user, Set<UserRole> userRoles);
 
-  //User saveUser (User user);
+  User saveUser (User user);
 
   //List<User> findUserList();
 
