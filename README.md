@@ -28,9 +28,8 @@ The following skills are used:
 
 ## UML Class Diagram
 
-* ![uml](https://user-images.githubusercontent.com/74436069/110069997-0a117b80-7d47-11eb-96ff-d7cfd3d944d6.jpg)
-
-
-## UML Class Diagram
-
 * ![uml](https://user-images.githubusercontent.com/74436069/110060309-b34e7680-7d33-11eb-99f8-a7aa2f2d8817.png)
+
+## Functionality Diagram
+
+* ![uml](https://user-images.githubusercontent.com/74436069/110069997-0a117b80-7d47-11eb-96ff-d7cfd3d944d6.jpg)
