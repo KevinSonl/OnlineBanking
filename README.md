@@ -14,18 +14,19 @@ The following functionality is completed:
 
 ## Implementation
 
-The following skills is used:
+The following skills are used:
 
-* [x] **intellj IDEA**
-* [x] **Spring framework and maven **
-* [x] **thymeleaf to render the frontend page **
-* [x] **Hibernate to persist data in MySQL database**
-* [x] **Heroku to host this project**
-* [x] User can **View and update the user profile** after login
+**intellj IDEA**
+**Spring framework and maven**
+**thymeleaf to render the frontend page**
+**Hibernate to persist data in MySQL database**
+**Heroku to host this project**
+**View and update the user profile**
 
 ## Heroku Link
 
 The following skills is used:
+**https://online-bank-user.herokuapp.com/index**
 
 
 ## UML Class Diagram
