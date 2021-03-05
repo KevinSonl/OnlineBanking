@@ -28,7 +28,7 @@ The following skills are used:
 
 ## UML Class Diagram
 
-![uml](https://user-images.githubusercontent.com/74436069/110069997-0a117b80-7d47-11eb-96ff-d7cfd3d944d6.jpg=100x300)
+![uml](https://user-images.githubusercontent.com/74436069/110069997-0a117b80-7d47-11eb-96ff-d7cfd3d944d6.jpg)
 
 
 ## UML Class Diagram
