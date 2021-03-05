@@ -22,6 +22,7 @@ The following skills are used:
 * **Hibernate to persist data in MySQL database**
 * **Heroku to host this project**
 
+
 ## Heroku Link
 
 **https://online-bank-user.herokuapp.com/index**
@@ -29,6 +30,7 @@ The following skills are used:
 ## UML Class Diagram
 
 * ![uml](https://user-images.githubusercontent.com/74436069/110060309-b34e7680-7d33-11eb-99f8-a7aa2f2d8817.png)
+
 
 ## Functionality Diagram
 
