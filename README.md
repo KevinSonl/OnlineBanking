@@ -12,6 +12,22 @@ The following functionality is completed:
 * [x] User can **Deposit and withdraw money from both of the accounts** after login
 * [x] User can **View and update the user profile** after login
 
+## Implementation
+
+The following skills is used:
+
+* [x] **intellj IDEA**
+* [x] **Spring framework and maven **
+* [x] **thymeleaf to render the frontend page **
+* [x] **Hibernate to persist data in MySQL database**
+* [x] **Heroku to host this project**
+* [x] User can **View and update the user profile** after login
+
+## Heroku Link
+
+The following skills is used:
+
+
 ## UML Class Diagram
 
 ![uml](https://user-images.githubusercontent.com/74436069/110060309-b34e7680-7d33-11eb-99f8-a7aa2f2d8817.png)
