@@ -18,14 +18,11 @@ The following skills are used:
 
 * **intellj IDEA**
 * **Spring framework and maven**
-**thymeleaf to render the frontend page**
-**Hibernate to persist data in MySQL database**
-**Heroku to host this project**
-**View and update the user profile**
+* **thymeleaf to render the frontend page**
+* **Hibernate to persist data in MySQL database**
+* **Heroku to host this project**
 
 ## Heroku Link
-
-The following skills is used:
 
 **https://online-bank-user.herokuapp.com/index**
 
