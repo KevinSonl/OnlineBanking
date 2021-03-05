@@ -1,5 +1,5 @@
 # OnlineBanking-User
-**OnlineBanking** is an online web app that allows user to manage their bank account with basic online bank functionality. Functionality graph is shown below. 
+**OnlineBanking** is an online web app that allows user to manage their bank account with basic online bank functionality. Functional graph and user stories are listed below.
 
 ## User Stories
 
@@ -25,6 +25,10 @@ The following skills are used:
 ## Heroku Link
 
 **https://online-bank-user.herokuapp.com/index**
+
+## UML Class Diagram
+
+![uml](https://user-images.githubusercontent.com/74436069/110069997-0a117b80-7d47-11eb-96ff-d7cfd3d944d6.jpg)
 
 
 ## UML Class Diagram
